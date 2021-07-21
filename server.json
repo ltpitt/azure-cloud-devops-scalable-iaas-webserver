@@ -14,8 +14,8 @@
             "image_publisher":"Canonical",
             "image_offer":"UbuntuServer",
             "image_sku":"18.04-LTS",
-            "azure_tags":{
-                "tagName":"NA"
+            "azure_tags": {
+              "udacity": "udacity-project1-image"
             },
             "managed_image_resource_group_name":"tagging-policy-rg",
             "managed_image_name":"myPackerImage",
