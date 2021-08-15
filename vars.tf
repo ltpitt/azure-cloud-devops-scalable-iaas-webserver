@@ -3,8 +3,8 @@ variable "prefix" {
 }
 
 variable "location" {
-	description = "The Azure Region in which all resources in this example should be creted."
-	default = "Ease US"
+	description = "The Azure Region in which all resources in this example should be created."
+	default = "East US"
 }
 
 variable "username" {
@@ -13,4 +13,8 @@ variable "username" {
 
 variable "password" {
 	description = "The password which should be used for the admin account of the resources created in this example"
+}
+
+variable "environment" {
+	description = "The environment which should be used in this example"
 }
