@@ -20,7 +20,7 @@
             "managed_image_resource_group_name":"tagging-policy-rg",
             "managed_image_name":"myPackerImage",
             "location":"East US",
-            "vm_size":"Standard_A2"
+            "vm_size":"Standard_D2s_v3"
         }
     ],
     "provisioners":[
