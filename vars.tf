@@ -22,3 +22,8 @@ variable "environment" {
 	description = "The environment which should be used in this example"
 	default = "test"
 }
+
+variable "virtual_machines_count" {
+  description = "The number of virtual machines which should be used in this example"
+  default = "2"
+}

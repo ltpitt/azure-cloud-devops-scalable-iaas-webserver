@@ -28,7 +28,8 @@ resource "azurerm_subnet" "internal" {
 }
 
 resource "azurerm_network_interface" "main" {
-  name                = "${var.prefix}-nic"
+  count               = var.virtual_machines_count
+  name                = "${var.prefix}-nic-${count.index}"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
 
@@ -55,7 +56,8 @@ resource "azurerm_public_ip" "main" {
 }
 
 resource "azurerm_linux_virtual_machine" "main" {
-  name                            = "${var.prefix}-vm"
+  count                           = var.virtual_machines_count
+  name                            = "${var.prefix}-vm-${count.index}"
   resource_group_name             = azurerm_resource_group.main.name
   location                        = azurerm_resource_group.main.location
   size                            = "Standard_D2s_v3"
@@ -63,7 +65,7 @@ resource "azurerm_linux_virtual_machine" "main" {
   admin_password                  = "${var.password}"
   disable_password_authentication = false
   network_interface_ids = [
-    azurerm_network_interface.main.id,
+    azurerm_network_interface.main[count.index].id,
   ]
 
   source_image_reference {

@@ -38,6 +38,13 @@ Create a policy in Azure:
 az policy definition create --name allResourcesMustHaveTags --rules azure_policy_all_indexed_resources_in_subscription_must_have_tags.json
 ```
 
+Show the created policy:
+```
+az policy assignment list
+```
+![az policy assignment list screenshot](images/az_policy_assignment_list.png)
+
+
 Deploy the Packer image:  
 ```packer build server.json```
 
@@ -54,128 +61,260 @@ Deploy the plan:
 
 ### Output
 ```
-[0m[1mazurerm_resource_group.main: Refreshing state... [id=/subscriptions/MY_SUBSCRIPTION/resourceGroups/prefix-resources][0m
-[0m[1mazurerm_virtual_network.main: Refreshing state... [id=/subscriptions/MY_SUBSCRIPTION/resourceGroups/prefix-resources/providers/Microsoft.Network/virtualNetworks/prefix-netwo
-rk][0m
-[0m[1mazurerm_public_ip.main: Refreshing state... [id=/subscriptions/MY_SUBSCRIPTION/resourceGroups/prefix-resources/providers/Microsoft.Network/publicIPAddresses/prefix-publicIp]
-[0m
-[0m[1mazurerm_subnet.internal: Refreshing state... [id=/subscriptions/MY_SUBSCRIPTION/resourceGroups/prefix-resources/providers/Microsoft.Network/virtualNetworks/prefix-network/su
-bnets/internal][0m
-[0m[1mazurerm_network_interface.main: Refreshing state... [id=/subscriptions/MY_SUBSCRIPTION/resourceGroups/prefix-resources/providers/Microsoft.Network/networkInterfaces/prefix-n
-ic][0m
-[0m
-[1m[36mNote:[0m[1m Objects have changed outside of Terraform[0m
 
-[0mTerraform detected the following changes made outside of Terraform since the last "terraform apply":
+E:\bitbucket\azure-cloud-devops-scalable-iaas-webserver (main -> origin)
+λ terraform apply
 
-[1m  # azurerm_subnet.internal[0m has been changed[0m[0m
-[0m  [33m~[0m[0m resource "azurerm_subnet" "internal" {
-        [1m[0mid[0m[0m                                             = "/subscriptions/MY_SUBSCRIPTION/resourceGroups/prefix-resources/providers/Microsoft.Network/virtualNetworks/
-prefix-network/subnets/internal"
-        [1m[0mname[0m[0m                                           = "internal"
-      [32m+[0m [0m[1m[0mservice_endpoint_policy_ids[0m[0m                    = []
-      [32m+[0m [0m[1m[0mservice_endpoints[0m[0m                              = []
-        [90m# (6 unchanged attributes hidden)[0m[0m
-    }
-[1m  # azurerm_virtual_network.main[0m has been changed[0m[0m
-[0m  [33m~[0m[0m resource "azurerm_virtual_network" "main" {
-        [1m[0mid[0m[0m                    = "/subscriptions/MY_SUBSCRIPTION/resourceGroups/prefix-resources/providers/Microsoft.Network/virtualNetworks/prefix-network"
-        [1m[0mname[0m[0m                  = "prefix-network"
-      [33m~[0m [0m[1m[0msubnet[0m[0m                = [
-          [32m+[0m [0m{
-              [32m+[0m [0maddress_prefix = "10.0.0.0/24"
-              [32m+[0m [0mid             = "/subscriptions/MY_SUBSCRIPTION/resourceGroups/prefix-resources/providers/Microsoft.Network/virtualNetworks/prefix-network/subnets/inte
-rnal"
-              [32m+[0m [0mname           = "internal"
-              [32m+[0m [0msecurity_group = ""
-            },
-        ]
-      [32m+[0m [0m[1m[0mtags[0m[0m                  = {}
-        [90m# (6 unchanged attributes hidden)[0m[0m
-    }
-[1m  # azurerm_network_interface.main[0m has been changed[0m[0m
-[0m  [33m~[0m[0m resource "azurerm_network_interface" "main" {
-        [1m[0mid[0m[0m                            = "/subscriptions/MY_SUBSCRIPTION/resourceGroups/prefix-resources/providers/Microsoft.Network/networkInterfaces/prefix-nic"
-        [1m[0mname[0m[0m                          = "prefix-nic"
-      [32m+[0m [0m[1m[0mtags[0m[0m                          = {}
-        [90m# (9 unchanged attributes hidden)[0m[0m
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with
+the following symbols:
+  + create
 
-        [90m# (1 unchanged block hidden)[0m[0m
-    }
-[1m  # azurerm_public_ip.main[0m has been changed[0m[0m
-[0m  [33m~[0m[0m resource "azurerm_public_ip" "main" {
-        [1m[0mid[0m[0m                      = "/subscriptions/MY_SUBSCRIPTION/resourceGroups/prefix-resources/providers/Microsoft.Network/publicIPAddresses/prefix-publicIp"
-      [32m+[0m [0m[1m[0mip_tags[0m[0m                 = {}
-        [1m[0mname[0m[0m                    = "prefix-publicIp"
-        [1m[0mtags[0m[0m                    = {
-            "environment" = "test"
-        }
-        [90m# (10 unchanged attributes hidden)[0m[0m
-    }
-[1m  # azurerm_resource_group.main[0m has been changed[0m[0m
-[0m  [33m~[0m[0m resource "azurerm_resource_group" "main" {
-        [1m[0mid[0m[0m       = "/subscriptions/MY_SUBSCRIPTION/resourceGroups/prefix-resources"
-        [1m[0mname[0m[0m     = "prefix-resources"
-      [32m+[0m [0m[1m[0mtags[0m[0m     = {}
-        [90m# (1 unchanged attribute hidden)[0m[0m
-    }
-
-Unless you have made equivalent changes to your configuration, or ignored the relevant attributes using ignore_changes, the following plan may include actions to undo or respond to these changes.
-[90m
-─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-[0m
-
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
-  [32m+[0m create
-[0m
 Terraform will perform the following actions:
 
-[1m  # azurerm_linux_virtual_machine.main[0m will be created[0m[0m
-[0m  [32m+[0m[0m resource "azurerm_linux_virtual_machine" "main" {
-      [32m+[0m [0m[1m[0madmin_password[0m[0m                  = (sensitive value)
-      [32m+[0m [0m[1m[0madmin_username[0m[0m                  = "username"
-      [32m+[0m [0m[1m[0mallow_extension_operations[0m[0m      = true
-      [32m+[0m [0m[1m[0mcomputer_name[0m[0m                   = (known after apply)
-      [32m+[0m [0m[1m[0mdisable_password_authentication[0m[0m = false
-      [32m+[0m [0m[1m[0mextensions_time_budget[0m[0m          = "PT1H30M"
-      [32m+[0m [0m[1m[0mid[0m[0m                              = (known after apply)
-      [32m+[0m [0m[1m[0mlocation[0m[0m                        = "eastus"
-      [32m+[0m [0m[1m[0mmax_bid_price[0m[0m                   = -1
-      [32m+[0m [0m[1m[0mname[0m[0m                            = "prefix-vm"
-      [32m+[0m [0m[1m[0mnetwork_interface_ids[0m[0m           = [
-          [32m+[0m [0m"/subscriptions/MY_SUBSCRIPTION/resourceGroups/prefix-resources/providers/Microsoft.Network/networkInterfaces/prefix-nic",
-        ]
-      [32m+[0m [0m[1m[0mplatform_fault_domain[0m[0m           = -1
-      [32m+[0m [0m[1m[0mpriority[0m[0m                        = "Regular"
-      [32m+[0m [0m[1m[0mprivate_ip_address[0m[0m              = (known after apply)
-      [32m+[0m [0m[1m[0mprivate_ip_addresses[0m[0m            = (known after apply)
-      [32m+[0m [0m[1m[0mprovision_vm_agent[0m[0m              = true
-      [32m+[0m [0m[1m[0mpublic_ip_address[0m[0m               = (known after apply)
-      [32m+[0m [0m[1m[0mpublic_ip_addresses[0m[0m             = (known after apply)
-      [32m+[0m [0m[1m[0mresource_group_name[0m[0m             = "prefix-resources"
-      [32m+[0m [0m[1m[0msize[0m[0m                            = "Standard_D2s_v3"
-      [32m+[0m [0m[1m[0mvirtual_machine_id[0m[0m              = (known after apply)
-      [32m+[0m [0m[1m[0mzone[0m[0m                            = (known after apply)
+  # azurerm_linux_virtual_machine.main[0] will be created
+  + resource "azurerm_linux_virtual_machine" "main" {
+      + admin_password                  = (sensitive value)
+      + admin_username                  = "username"
+      + allow_extension_operations      = true
+      + computer_name                   = (known after apply)
+      + disable_password_authentication = false
+      + extensions_time_budget          = "PT1H30M"
+      + id                              = (known after apply)
+      + location                        = "eastus"
+      + max_bid_price                   = -1
+      + name                            = "prefix-vm-0"
+      + network_interface_ids           = (known after apply)
+      + platform_fault_domain           = -1
+      + priority                        = "Regular"
+      + private_ip_address              = (known after apply)
+      + private_ip_addresses            = (known after apply)
+      + provision_vm_agent              = true
+      + public_ip_address               = (known after apply)
+      + public_ip_addresses             = (known after apply)
+      + resource_group_name             = "prefix-resources"
+      + size                            = "Standard_D2s_v3"
+      + virtual_machine_id              = (known after apply)
+      + zone                            = (known after apply)
 
-      [32m+[0m [0mos_disk {
-          [32m+[0m [0m[1m[0mcaching[0m[0m                   = "ReadWrite"
-          [32m+[0m [0m[1m[0mdisk_size_gb[0m[0m              = (known after apply)
-          [32m+[0m [0m[1m[0mname[0m[0m                      = (known after apply)
-          [32m+[0m [0m[1m[0mstorage_account_type[0m[0m      = "Standard_LRS"
-          [32m+[0m [0m[1m[0mwrite_accelerator_enabled[0m[0m = false
+      + os_disk {
+          + caching                   = "ReadWrite"
+          + disk_size_gb              = (known after apply)
+          + name                      = (known after apply)
+          + storage_account_type      = "Standard_LRS"
+          + write_accelerator_enabled = false
         }
 
-      [32m+[0m [0msource_image_reference {
-          [32m+[0m [0m[1m[0moffer[0m[0m     = "UbuntuServer"
-          [32m+[0m [0m[1m[0mpublisher[0m[0m = "Canonical"
-          [32m+[0m [0m[1m[0msku[0m[0m       = "18.04-LTS"
-          [32m+[0m [0m[1m[0mversion[0m[0m   = "latest"
+      + source_image_reference {
+          + offer     = "UbuntuServer"
+          + publisher = "Canonical"
+          + sku       = "18.04-LTS"
+          + version   = "latest"
         }
     }
 
-[0m[1mPlan:[0m 1 to add, 0 to change, 0 to destroy.
-[0m[90m
-─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-[0m
+  # azurerm_linux_virtual_machine.main[1] will be created
+  + resource "azurerm_linux_virtual_machine" "main" {
+      + admin_password                  = (sensitive value)
+      + admin_username                  = "username"
+      + allow_extension_operations      = true
+      + computer_name                   = (known after apply)
+      + disable_password_authentication = false
+      + extensions_time_budget          = "PT1H30M"
+      + id                              = (known after apply)
+      + location                        = "eastus"
+      + max_bid_price                   = -1
+      + name                            = "prefix-vm-1"
+      + network_interface_ids           = (known after apply)
+      + platform_fault_domain           = -1
+      + priority                        = "Regular"
+      + private_ip_address              = (known after apply)
+      + private_ip_addresses            = (known after apply)
+      + provision_vm_agent              = true
+      + public_ip_address               = (known after apply)
+      + public_ip_addresses             = (known after apply)
+      + resource_group_name             = "prefix-resources"
+      + size                            = "Standard_D2s_v3"
+      + virtual_machine_id              = (known after apply)
+      + zone                            = (known after apply)
 
+      + os_disk {
+          + caching                   = "ReadWrite"
+          + disk_size_gb              = (known after apply)
+          + name                      = (known after apply)
+          + storage_account_type      = "Standard_LRS"
+          + write_accelerator_enabled = false
+        }
+
+      + source_image_reference {
+          + offer     = "UbuntuServer"
+          + publisher = "Canonical"
+          + sku       = "18.04-LTS"
+          + version   = "latest"
+        }
+    }
+
+  # azurerm_network_interface.main[0] will be created
+  + resource "azurerm_network_interface" "main" {
+      + applied_dns_servers           = (known after apply)
+      + dns_servers                   = (known after apply)
+      + enable_accelerated_networking = false
+      + enable_ip_forwarding          = false
+      + id                            = (known after apply)
+      + internal_dns_name_label       = (known after apply)
+      + internal_domain_name_suffix   = (known after apply)
+      + location                      = "eastus"
+      + mac_address                   = (known after apply)
+      + name                          = "prefix-nic-0"
+      + private_ip_address            = (known after apply)
+      + private_ip_addresses          = (known after apply)
+      + resource_group_name           = "prefix-resources"
+      + tags                          = {
+          + "udacity" = "prefix-project-1"
+        }
+      + virtual_machine_id            = (known after apply)
+
+      + ip_configuration {
+          + name                          = "internal"
+          + primary                       = (known after apply)
+          + private_ip_address            = (known after apply)
+          + private_ip_address_allocation = "dynamic"
+          + private_ip_address_version    = "IPv4"
+          + subnet_id                     = (known after apply)
+        }
+    }
+
+  # azurerm_network_interface.main[1] will be created
+  + resource "azurerm_network_interface" "main" {
+      + applied_dns_servers           = (known after apply)
+      + dns_servers                   = (known after apply)
+      + enable_accelerated_networking = false
+      + enable_ip_forwarding          = false
+      + id                            = (known after apply)
+      + internal_dns_name_label       = (known after apply)
+      + internal_domain_name_suffix   = (known after apply)
+      + location                      = "eastus"
+      + mac_address                   = (known after apply)
+      + name                          = "prefix-nic-1"
+      + private_ip_address            = (known after apply)
+      + private_ip_addresses          = (known after apply)
+      + resource_group_name           = "prefix-resources"
+      + tags                          = {
+          + "udacity" = "prefix-project-1"
+        }
+      + virtual_machine_id            = (known after apply)
+
+      + ip_configuration {
+          + name                          = "internal"
+          + primary                       = (known after apply)
+          + private_ip_address            = (known after apply)
+          + private_ip_address_allocation = "dynamic"
+          + private_ip_address_version    = "IPv4"
+          + subnet_id                     = (known after apply)
+        }
+    }
+
+  # azurerm_public_ip.main will be created
+  + resource "azurerm_public_ip" "main" {
+      + allocation_method       = "Static"
+      + availability_zone       = (known after apply)
+      + fqdn                    = (known after apply)
+      + id                      = (known after apply)
+      + idle_timeout_in_minutes = 4
+      + ip_address              = (known after apply)
+      + ip_version              = "IPv4"
+      + location                = "eastus"
+      + name                    = "prefix-publicIp"
+      + resource_group_name     = "prefix-resources"
+      + sku                     = "Basic"
+      + sku_tier                = "Regional"
+      + tags                    = {
+          + "udacity" = "prefix-project-1"
+        }
+      + zones                   = (known after apply)
+    }
+
+  # azurerm_resource_group.main will be created
+  + resource "azurerm_resource_group" "main" {
+      + id       = (known after apply)
+      + location = "eastus"
+      + name     = "prefix-resources"
+      + tags     = {
+          + "udacity" = "prefix-project-1"
+        }
+    }
+
+  # azurerm_subnet.internal will be created
+  + resource "azurerm_subnet" "internal" {
+      + address_prefix                                 = (known after apply)
+      + address_prefixes                               = [
+          + "10.0.0.0/24",
+        ]
+      + enforce_private_link_endpoint_network_policies = false
+      + enforce_private_link_service_network_policies  = false
+      + id                                             = (known after apply)
+      + name                                           = "internal"
+      + resource_group_name                            = "prefix-resources"
+      + virtual_network_name                           = "prefix-network"
+    }
+
+  # azurerm_virtual_network.main will be created
+  + resource "azurerm_virtual_network" "main" {
+      + address_space         = [
+          + "10.0.0.0/16",
+        ]
+      + dns_servers           = (known after apply)
+      + guid                  = (known after apply)
+      + id                    = (known after apply)
+      + location              = "eastus"
+      + name                  = "prefix-network"
+      + resource_group_name   = "prefix-resources"
+      + subnet                = (known after apply)
+      + tags                  = {
+          + "udacity" = "prefix-project-1"
+        }
+      + vm_protection_enabled = false
+    }
+
+Plan: 8 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+azurerm_resource_group.main: Creating...
+azurerm_resource_group.main: Creation complete after 2s [id=/subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6/resourceGroups/prefix-resources]
+azurerm_virtual_network.main: Creating...
+azurerm_public_ip.main: Creating...
+azurerm_public_ip.main: Creation complete after 5s [id=/subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6/resourceGroups/prefix-resources/providers/Microsoft.Network/publicIPAddresses/prefix-publicIp]
+azurerm_virtual_network.main: Creation complete after 7s [id=/subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6/resourceGroups/prefix-resources/providers/Microsoft.Network/virtualNetworks/prefix-network]
+azurerm_subnet.internal: Creating...
+azurerm_subnet.internal: Creation complete after 4s [id=/subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6/resourceGroups/prefix-resources/providers/Microsoft.Network/virtualNetworks/prefix-network/subnets/internal]
+azurerm_network_interface.main[1]: Creating...
+azurerm_network_interface.main[0]: Creating...
+azurerm_network_interface.main[0]: Creation complete after 4s [id=/subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6/resourceGroups/prefix-resources/providers/Microsoft.Network/networkInterfaces/prefix-nic-0]
+azurerm_network_interface.main[1]: Creation complete after 7s [id=/subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6/resourceGroups/prefix-resources/providers/Microsoft.Network/networkInterfaces/prefix-nic-1]
+azurerm_linux_virtual_machine.main[1]: Creating...
+azurerm_linux_virtual_machine.main[0]: Creating...
+azurerm_linux_virtual_machine.main[1]: Still creating... [10s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [10s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [20s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [20s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [30s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [30s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [40s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [40s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [50s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [50s elapsed]
+azurerm_linux_virtual_machine.main[0]: Creation complete after 53s [id=/subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6/resourceGroups/prefix-resources/providers/Microsoft.Compute/virtualMachines/prefix-vm-0]
+azurerm_linux_virtual_machine.main[1]: Still creating... [1m0s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [1m10s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [1m20s elapsed]
+azurerm_linux_virtual_machine.main[1]: Creation complete after 1m23s [id=/subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6/resourceGroups/prefix-resources/providers/Microsoft.Compute/virtualMachines/prefix-vm-1]
+
+Apply complete! Resources: 8 added, 0 changed, 0 destroyed.
+
+E:\bitbucket\azure-cloud-devops-scalable-iaas-webserver (main -> origin)
+λ
 ```
