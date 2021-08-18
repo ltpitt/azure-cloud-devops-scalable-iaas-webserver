@@ -27,3 +27,8 @@ variable "virtual_machines_count" {
   description = "The number of virtual machines which should be used in this example"
   default = "2"
 }
+
+variable "packer_image_id" {
+  description = "The ID for the image which will should be used in this example"
+  default     = "/subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6/resourceGroups/tagging-policy-rg/providers/Microsoft.Compute/images/myPackerImage"
+}
