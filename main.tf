@@ -124,15 +124,4 @@ resource "azurerm_lb" "main" {
   }
 }
 
-resource "azurerm_public_ip" "main" {
-  name                = "${var.prefix}-public-ip"
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
-  allocation_method   = "Dynamic"
-
-  tags = {
-    udacity = "${var.prefix}-project-1"
-  }
-}
-
 
