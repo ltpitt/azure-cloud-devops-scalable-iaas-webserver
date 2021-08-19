@@ -108,3 +108,19 @@ resource "azurerm_network_security_group" "main" {
     destination_address_prefix = "VirtualNetwork"
   }
 }
+
+// Load balancer resource
+resource "azurerm_lb" "main" {
+  name                = "${var.prefix}-lb"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+
+  frontend_ip_configuration {
+    name                 = "${var.prefix}-public-address"
+    public_ip_address_id = azurerm_public_ip.pip.id
+  }
+
+  tags = {
+    udacity = "${var.prefix}-project-1"
+  }
+}
