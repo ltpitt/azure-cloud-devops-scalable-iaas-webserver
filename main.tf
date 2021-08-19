@@ -108,8 +108,7 @@ resource "azurerm_network_security_group" "main" {
     destination_address_prefix = "VirtualNetwork"
   }
 }
-
-// Load balancer resource
+// Load balancer resources
 resource "azurerm_lb" "main" {
   name                = "${var.prefix}-lb"
   location            = azurerm_resource_group.main.location
@@ -124,3 +123,16 @@ resource "azurerm_lb" "main" {
     udacity = "${var.prefix}-project-1"
   }
 }
+
+resource "azurerm_public_ip" "main" {
+  name                = "${var.prefix}-public-ip"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  allocation_method   = "Dynamic"
+
+  tags = {
+    udacity = "${var.prefix}-project-1"
+  }
+}
+
+
