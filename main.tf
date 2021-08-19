@@ -116,7 +116,7 @@ resource "azurerm_lb" "main" {
 
   frontend_ip_configuration {
     name                 = "${var.prefix}-public-address"
-    public_ip_address_id = azurerm_public_ip.pip.id
+    public_ip_address_id = azurerm_public_ip.main.id
   }
 
   tags = {
