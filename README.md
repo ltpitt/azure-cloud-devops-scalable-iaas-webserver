@@ -17,7 +17,7 @@ In this project allows to use the included Packer and Terraform template to depl
 4. Install [Terraform](https://www.terraform.io/downloads.html)
 
 ### Instructions
-####1. Deploy the Packer image using the provided Packer template
+1. Deploy the Packer image using the provided Packer template
 
 In order to configure the environment variables use this snippet:
 ```
@@ -48,7 +48,7 @@ az policy assignment list
 Deploy the Packer image:  
 ```packer build server.json```
 
-####2. Deploy the infrastructure using the provided Terraform template
+2. Deploy the infrastructure using the provided Terraform template
 
 Initialize Terraform:  
 ```terraform init```
