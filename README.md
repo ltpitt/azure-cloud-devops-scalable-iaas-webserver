@@ -33,6 +33,23 @@ Create a resource group in Azure:
 az group create -n tagging-policy-rg -l eastus
 ```
 
+### Output
+```
+E:\bitbucket\azure-cloud-devops-scalable-iaas-webserver (main -> origin)
+λ az group create -n tagging-policy-rg -l eastus
+{
+  "id": "/subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6/resourceGroups/tagging-policy-rg",
+  "location": "eastus",
+  "managedBy": null,
+  "name": "tagging-policy-rg",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}
+```
+
 Create a policy in Azure:
 ```
 az policy definition create --name allResourcesMustHaveTags --rules azure_policy_all_indexed_resources_in_subscription_must_have_tags.json
