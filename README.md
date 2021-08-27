@@ -35,7 +35,6 @@ az group create -n tagging-policy-rg -l eastus
 
 ### Output
 ```
-E:\bitbucket\azure-cloud-devops-scalable-iaas-webserver (main -> origin)
 λ az group create -n tagging-policy-rg -l eastus
 {
   "id": "/subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6/resourceGroups/tagging-policy-rg",
@@ -59,7 +58,40 @@ Show the created policy:
 ```
 az policy assignment list
 ```
-![az policy assignment list screenshot](images/az_policy_assignment_list.png)
+
+### Output
+```
+λ az policy assignment list
+[
+  {
+    "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+    "displayName": "ASC Default (subscription: 0f960931-a876-48d6-a2a6-895b88229aa6)",
+    "enforcementMode": "Default",
+    "id": "/subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6/providers/Microsoft.Authorization/policyAssignments/SecurityCenterBuiltIn",
+    "identity": null,
+    "location": null,
+    "metadata": {
+      "assignedBy": "Security Center",
+      "createdBy": "8ea7ace1-52ab-4230-b5a5-d5660b128278",
+      "createdOn": "2021-08-15T21:41:39.756667Z",
+      "excludedOutOfTheBoxStandards": [
+        "PCI DSS 3.2.1",
+        "ISO 27001",
+        "SOC TSP"
+      ],
+      "updatedBy": null,
+      "updatedOn": null
+    },
+    "name": "SecurityCenterBuiltIn",
+    "nonComplianceMessages": null,
+    "notScopes": null,
+    "parameters": {},
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+    "scope": "/subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6",
+    "type": "Microsoft.Authorization/policyAssignments"
+  }
+]
+```
 
 
 Deploy the Packer image:  
@@ -67,7 +99,6 @@ Deploy the Packer image:
 
 ### Output
 ```
-E:\bitbucket\azure-cloud-devops-scalable-iaas-webserver (main -> origin)
 λ packer build server.json
 azure-arm: output will be in this color.
 
@@ -154,9 +185,6 @@ ManagedImageResourceGroupName: tagging-policy-rg
 ManagedImageName: myPackerImage
 ManagedImageId: /subscriptions/0f960931-a876-48d6-a2a6-895b88229aa6/resourceGroups/tagging-policy-rg/providers/Microsoft.Compute/images/myPackerImage
 ManagedImageLocation: East US
-
-
-E:\bitbucket\azure-cloud-devops-scalable-iaas-webserver (main -> origin)
 ```
 
 
@@ -173,7 +201,6 @@ Deploy the plan:
 
 ### Output
 ```
-E:\bitbucket\azure-cloud-devops-scalable-iaas-webserver (main -> origin)
 λ terraform apply
 
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with
@@ -426,6 +453,4 @@ azurerm_linux_virtual_machine.main[1]: Creation complete after 1m23s [id=/subscr
 
 Apply complete! Resources: 8 added, 0 changed, 0 destroyed.
 
-E:\bitbucket\azure-cloud-devops-scalable-iaas-webserver (main -> origin)
-λ
 ```
